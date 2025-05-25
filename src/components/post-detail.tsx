@@ -26,11 +26,11 @@ export const PostDetail = () => {
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!id || !commentContent) {
+    if (!id || !commentContent || !author) {
       setError(true);
       setTimeout(() => setError(false), 10 * 1000)
       return
-    };
+    }
     const newComment = await createComment({
       content: commentContent,
       post_id: Number(id),
@@ -76,6 +76,9 @@ export const PostDetail = () => {
         <button type="submit" className="bg-blue-500 text-white p-2 rounded cursor-pointer hover:bg-blue-600">
           Добавить комментарий
         </button>
+        {error && (
+          <p className="text-rose-300">Please fill up all fields</p>
+        )}
       </form>
     </div>
   );

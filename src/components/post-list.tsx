@@ -58,13 +58,13 @@ export const PostList = ({categoryId}: Props) => {
               {post.title}
             </Link>
             <p className="text-gray-600 mb-2">{post.category_name}</p>
-            <p className="leading-tight mb-2">{post.content.slice(0, 100)}...</p>
+            <p className="leading-tight mb-2">{post.content.slice(0, 100)}{post.content.length >= 100 && '...'}</p>
             <p className="text-end self-end text-sm text-gray-400 mt-auto">{new Date(post.created_at).toLocaleString()}</p>
           </div>
         ))}
       </div>
       {posts.length === 0 && (
-        <p className="text-center text-gray-600">No posts found</p>
+        <p className="text-center text-gray-300">No posts in this category</p>
       )}
     </div>
   );
