@@ -1,5 +1,9 @@
 import React, {useCallback, useEffect, useRef} from "react";
 
+/*
+* Source: https://dou.ua/forums/topic/52327/
+* */
+
 interface Props {
   onTriggered: (e: Event) => void;
   disableClick?: boolean;
