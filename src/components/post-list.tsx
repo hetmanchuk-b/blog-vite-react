@@ -10,6 +10,7 @@ interface Props {
 
 export const PostList = ({categoryId}: Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [sortedPosts, setSortedPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(categoryId);
 
@@ -25,6 +26,12 @@ export const PostList = ({categoryId}: Props) => {
     fetchPosts();
     fetchCategories();
   }, [selectedCategory]);
+
+  useEffect(() => {
+    setSortedPosts(posts.sort((postA, postB) => {
+      return new Date(postB.created_at).getTime() - new Date(postA.created_at).getTime();
+    }));
+  }, [posts]);
 
   return (
     <div className="p-4">
@@ -52,14 +59,19 @@ export const PostList = ({categoryId}: Props) => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <div key={post.id} className="border border-gray-600 p-4 rounded-lg flex flex-col items-start">
-            <Link to={`/posts/${post.id}`} className="text-xl font-semibold text-blue-600 hover:text-blue-500 block leading-none border-b border-blue-500 w-full pb-2">
+        {sortedPosts.map((post) => (
+          <div key={post.id} className="border border-gray-600 py-2 px-4 rounded-lg flex flex-col items-start">
+            <Link to={`/posts/${post.id}`}
+                  className="text-xl font-semibold text-blue-600 hover:text-blue-500 block leading-none border-b border-blue-500 w-full pb-2 mb-2">
               {post.title}
             </Link>
-            <p className="text-gray-600 mb-2">{post.category_name}</p>
             <p className="leading-tight mb-2">{post.content.slice(0, 100)}{post.content.length >= 100 && '...'}</p>
-            <p className="text-end self-end text-sm text-gray-400 mt-auto">{new Date(post.created_at).toLocaleString()}</p>
+            <div className="flex justify-between w-full mt-auto">
+              <p
+                className="bg-blue-950 text-white text-xs border-blue-900 border rounded-full px-2.5 py-0.5">{post.category_name}</p>
+              <p
+                className="text-end self-end text-sm text-gray-400">{new Date(post.created_at).toLocaleString()}</p>
+            </div>
           </div>
         ))}
       </div>
