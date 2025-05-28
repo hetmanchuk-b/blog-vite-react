@@ -1,7 +1,9 @@
+import {ClientLayout} from "../components/layout/client-layout.tsx";
+
 export const ForgotPasswordPage = () => {
   return (
-    <div>
+    <ClientLayout>
       Forgot password page
-    </div>
+    </ClientLayout>
   );
 };

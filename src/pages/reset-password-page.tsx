@@ -1,7 +1,9 @@
+import {ClientLayout} from "../components/layout/client-layout.tsx";
+
 export const ResetPasswordPage = () => {
   return (
-    <div>
+    <ClientLayout>
       Reset password page
-    </div>
+    </ClientLayout>
   );
 };

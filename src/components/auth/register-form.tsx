@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {toast} from "sonner";
 import {register} from "../../services/api.ts";
-import {useAuth} from "../../context/auth-context.tsx";
+import {useAuth} from "../../hooks/use-auth.ts";
 
 interface Props {
   onSuccess: () => void;

@@ -34,8 +34,7 @@ export const PostList = ({categoryId}: Props) => {
   }, [posts]);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl text-center font-bold mb-4">Blog posts</h1>
+    <>
       <div className="mb-4">
         <div className="flex">
           <label
@@ -62,7 +61,7 @@ export const PostList = ({categoryId}: Props) => {
         {sortedPosts.map((post) => (
           <div key={post.id} className="border border-gray-600 py-2 px-4 rounded-lg flex flex-col items-start">
             <Link to={`/posts/${post.id}`}
-                  className="text-xl font-semibold text-blue-600 hover:text-blue-500 block leading-none border-b border-blue-500 w-full pb-2 mb-2">
+                  className="text-xl font-semibold text-blue-400 hover:text-blue-100 block leading-none border-b border-blue-500 w-full pb-2 mb-2">
               {post.title}
             </Link>
             <p className="leading-tight mb-2">{post.content.slice(0, 100)}{post.content.length >= 100 && '...'}</p>
@@ -78,8 +77,7 @@ export const PostList = ({categoryId}: Props) => {
       {posts.length === 0 && (
         <p className="text-center text-gray-300">No posts in this category</p>
       )}
-    </div>
+    </>
   );
 };
 
-export default PostList;

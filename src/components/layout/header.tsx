@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom";
-import {useAuth} from "../../context/auth-context.tsx";
+import {useAuth} from "../../hooks/use-auth.ts";
 import {useState} from "react";
 import {useDetectClickOutside} from "../../hooks/use-detect-click-outside.ts";
+import { Icons } from "../icons.tsx";
 
 export const Header = () => {
   const [userNavOpen, setUserNavOpen] = useState(false);
@@ -18,7 +19,10 @@ export const Header = () => {
     <header className="absolute h-15 z-40 bg-neutral-800 left-0 top-0 w-full">
       <div className="h-15 w-full flex items-center gap-4 px-4">
         <Link to="/"
-              className="text-emerald-400 text-2xl font-bold leading-none hover:text-emerald-300 px-4">BlogWebsite</Link>
+              className="text-emerald-400 text-2xl font-bold leading-none hover:text-emerald-300 px-4 flex items-center gap-1">
+          <Icons.book className="size-6" />
+          BlogWebsite
+        </Link>
         <div className="ml-auto">
           <div className="flex items-center gap-2">
             {isAuthenticated ? (
@@ -28,10 +32,10 @@ export const Header = () => {
                     onClick={toggleUserNav}
                     className="flex items-center gap-2 cursor-pointer transition-colors hover:bg-neutral-700 h-9 px-3 rounded-lg">
                     <span className="font-semibold">{user?.username}</span>
-                    <div className="size-9 rounded-full overflow-hidden bg-neutral-100 relative">
+                    <div className="size-7 rounded-full overflow-hidden bg-neutral-400 relative">
                       <div
-                        className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-gray-600 font-extrabold text-2xl leading-none select-none">
-                        {user?.username.slice(0, 1).toUpperCase()}
+                        className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-gray-600 font-extrabold leading-none select-none">
+                        <Icons.menu className="size-5" />
                       </div>
                     </div>
                   </button>
@@ -39,14 +43,25 @@ export const Header = () => {
                     className="absolute top-9 bg-neutral-800 p-4 w-51 right-0 rounded-lg min-h-47 max-h-[340px] overflow-auto blog-scrollbar">
                     <div className="space-y-2">
                       {isAdmin && (
-                        <Link to="/create" className="primary-button bg-emerald-800 w-full">
-                          Create post
-                        </Link>
+                        <>
+                          <Link to="/create-post"
+                                className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-1">
+                            Create post
+                            <Icons.pen className="size-4"/>
+                          </Link>
+                          <Link to="/admin/dashboard"
+                                className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-1">
+                            Admin
+                            <Icons.lock className="size-4"/>
+                          </Link>
+                          <div className="h-0.5 w-full my-3 bg-indigo-300"></div>
+                        </>
                       )}
                       <button
-                        className="primary-button w-full"
+                        className="primary-button w-full h-13 gap-2"
                         onClick={logout}>
                         Logout
+                        <Icons.logout className="size-5" />
                       </button>
                     </div>
                   </div>)}
@@ -54,8 +69,14 @@ export const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/login" className="primary-button">Sign In</Link>
-                <Link to="/register" className="primary-button bg-emerald-800">Sign Up</Link>
+                <Link to="/login" className="primary-button gap-2">
+                  <Icons.login className="size-5" />
+                  Sign In
+                </Link>
+                <Link to="/register" className="primary-button bg-emerald-800 gap-2">
+                  <Icons.signup className="size-5" />
+                  Sign Up
+                </Link>
               </>
             )}
           </div>

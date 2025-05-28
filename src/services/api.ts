@@ -3,6 +3,7 @@ import type {Category} from "../types/category.ts";
 import type {Post} from "../types/post.ts";
 import type {Comment} from "../types/comment.ts";
 import type {AuthResponse, ForgotPasswordData, LoginData, RegisterData, ResetPasswordData} from "../types/auth.ts";
+import type {User} from "../types/user.ts";
 
 const API_URL = import.meta.env.API_URL || 'http://localhost:3000';
 
@@ -73,5 +74,21 @@ export const forgotPassword = async (data: ForgotPasswordData): Promise<{ messag
 
 export const resetPassword = async (data: ResetPasswordData): Promise<{ message: string }> => {
   const response = await api.post('/auth/reset-password', data);
+  return response.data;
+}
+
+// Users
+export const getAllUsers = async (): Promise<User[]> => {
+  const response = await api.get('/users');
+  return response.data;
+}
+
+export const updateUserRole = async (userId: number, role: 'admin' | 'user'): Promise<User> => {
+  const response = await api.put(`/users/${userId}/role`, {role});
+  return response.data;
+}
+
+export const verifyToken = async (): Promise<{user: User}> => {
+  const response = await api.get('/auth/verify');
   return response.data;
 }

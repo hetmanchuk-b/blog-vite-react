@@ -1,4 +1,4 @@
-import {useAuth} from "../../context/auth-context.tsx";
+import {useAuth} from "../../hooks/use-auth.ts";
 import React, {useState} from "react";
 import {toast} from "sonner";
 import {login} from "../../services/api.ts";

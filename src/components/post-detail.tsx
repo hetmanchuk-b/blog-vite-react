@@ -3,13 +3,18 @@ import { useParams } from 'react-router-dom';
 import { getPost, getComments, createComment } from '../services/api';
 import type {Post} from "../types/post.ts";
 import type {Comment} from "../types/comment.ts";
+import {useAuth} from "../hooks/use-auth.ts";
+import {ClientLayout} from "./layout/client-layout.tsx";
 
 export const PostDetail = () => {
+  const {user, isAuthenticated} = useAuth();
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentContent, setCommentContent] = useState('');
-  const [author, setAuthor] = useState('Guest');
+  const [author, setAuthor] = useState(
+    isAuthenticated ? user?.username : 'Guest'
+  );
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,7 +48,7 @@ export const PostDetail = () => {
   if (!post) return <div>Loading...</div>;
 
   return (
-    <div className="p-4">
+    <ClientLayout>
       <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
       <div className="p-2 rounded-lg border border-gray-600 mb-4">
         <p className="text-gray-600 mb-2">Category: {post.category_name}</p>
@@ -63,9 +68,10 @@ export const PostDetail = () => {
         <input
           type="text"
           value={author}
+          readOnly
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Ваше имя"
-          className="border p-2 w-full rounded bg-gray-400 font-semibold text-xl border-gray-600 text-gray-900"
+          className="border p-2 w-full bg-transparent text-white cursor-default rounded bg-gray-400 font-semibold text-xl border-gray-600 outline-0"
         />
         <textarea
           value={commentContent}
@@ -80,6 +86,6 @@ export const PostDetail = () => {
           <p className="text-rose-300">Please fill up all fields</p>
         )}
       </form>
-    </div>
+    </ClientLayout>
   );
 };
