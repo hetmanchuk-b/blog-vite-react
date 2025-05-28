@@ -60,7 +60,7 @@ export const CreatePostForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto w-full">
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="title" className="block text-sm font-medium text-gray-400">
           Title
         </label>
         <input
@@ -78,7 +78,7 @@ export const CreatePostForm = () => {
         {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title}</p>}
       </div>
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="content" className="block text-sm font-medium text-gray-400">
           Content
         </label>
         <textarea
@@ -96,7 +96,7 @@ export const CreatePostForm = () => {
         {errors.content && <p className="mt-1 text-sm text-red-500">{errors.content}</p>}
       </div>
       <div>
-        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-400">
           Category
         </label>
         <select
@@ -109,7 +109,7 @@ export const CreatePostForm = () => {
               categoryId: e.target.value ? undefined : 'Category is required',
             }));
           }}
-          className={`mt-1 block w-full px-3 py-2 border ${
+          className={`mt-1 block bg-neutral-800 w-full px-3 py-2 border ${
             errors.categoryId ? 'border-red-500' : 'border-gray-300'
           } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
         >

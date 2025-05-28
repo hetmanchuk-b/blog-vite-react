@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import type {User} from "../../types/user.ts";
-import {getAllUsers, updateUserRole} from "../../services/api.ts";
+import {deleteUser, getAllUsers, updateUserRole} from "../../services/api.ts";
 import {toast} from "sonner";
 import {AdminLayout} from "../../components/layout/admin-layout.tsx";
+import {useAuth} from "../../hooks/use-auth.ts";
 
 export const UsersPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const {user: actualUser} = useAuth();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -22,6 +24,16 @@ export const UsersPage = () => {
 
     fetchUsers();
   }, []);
+
+  const handleDeleteUser = async (userId: number) => {
+    try {
+      const response = await deleteUser(userId);
+      setUsers(users.filter(user => user.id !== userId));
+      toast.success(response.message || 'User deleted successfully.');
+    } catch (err: any) {
+      toast.error(err.response?.data?.error || 'Failed to delete user');
+    }
+  }
 
   const handleRoleChange = async (userId: number, newRole: 'admin' | 'user') => {
     try {
@@ -58,15 +70,26 @@ export const UsersPage = () => {
             <td className="py-2 px-4 border-b">{user.username}</td>
             <td className="py-2 px-4 border-b">{user.email}</td>
             <td className="py-2 px-4 border-b">{user.role}</td>
-            <td className="py-2 px-4 border-b">
-              <select
-                value={user.role}
-                onChange={(e) => handleRoleChange(user.id, e.target.value as 'admin' | 'user')}
-                className="border rounded px-2 py-1"
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
+            <td className="py-2 px-4 border-b flex items-center flex-col gap-2">
+              {actualUser?.id !== user.id ? (
+                <>
+                  <select
+                    value={user.role}
+                    onChange={(e) => handleRoleChange(user.id, e.target.value as 'admin' | 'user')}
+                    className="border rounded px-2 py-1"
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                  <button
+                    className="secondary-button"
+                    onClick={() => handleDeleteUser(user.id)}
+                  >Delete user
+                  </button>
+                </>
+              ) : (
+                <p>This is you</p>
+              )}
             </td>
           </tr>
         ))}

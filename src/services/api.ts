@@ -106,3 +106,8 @@ export const updateUserProfile = async (data: Partial<User>): Promise<User> => {
   const response = await api.put('/users/me', data);
   return response.data;
 }
+
+export const deleteUser = async (userId: number): Promise<{ message: string }> => {
+  const response = await api.delete(`/users/${userId}`);
+  return response.data;
+}
