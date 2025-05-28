@@ -8,6 +8,8 @@ import {
   Menu,
   UserPlus,
   LoaderCircle,
+  PanelLeftDashed,
+  UserRoundCog,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -23,4 +25,6 @@ export const Icons = {
   signup: UserPlus,
   menu: Menu,
   loader: LoaderCircle,
+  sidebar: PanelLeftDashed,
+  userSettings: UserRoundCog,
 }

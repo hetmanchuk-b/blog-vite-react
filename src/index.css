@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+    --animate-spinx: spinx 5s linear infinite;
+    @keyframes spinx {
+        0%,
+        100% {
+            transform: scaleX(-1);
+        }
+        50% {
+            transform: scaleX(1);
+        }
+
+    }
+
+    --animate-wiggle: wiggle 1s ease-in-out infinite;
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: rotate(-3deg);
+        }
+        50% {
+            transform: rotate(3deg);
+        }
+    }
+}
+
+
 body {
     @apply bg-neutral-900 text-stone-100
 }

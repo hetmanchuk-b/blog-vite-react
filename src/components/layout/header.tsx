@@ -19,8 +19,8 @@ export const Header = () => {
     <header className="absolute h-15 z-40 bg-neutral-800 left-0 top-0 w-full">
       <div className="h-15 w-full flex items-center gap-4 px-4">
         <Link to="/"
-              className="text-emerald-400 text-2xl font-bold leading-none hover:text-emerald-300 px-4 flex items-center gap-1">
-          <Icons.book className="size-6" />
+              className="text-emerald-400 text-xl font-normal leading-none tracking-widest hover:text-emerald-300 px-4 flex items-center gap-1 group">
+          <Icons.book className="size-6 animate-spinx" />
           BlogWebsite
         </Link>
         <div className="ml-auto">
@@ -40,23 +40,28 @@ export const Header = () => {
                     </div>
                   </button>
                   {userNavOpen && (<div
-                    className="absolute top-9 bg-neutral-800 p-4 w-51 right-0 rounded-lg min-h-10 max-h-[340px] overflow-auto blog-scrollbar">
+                    className="absolute top-9 bg-neutral-800 p-4 w-58 right-0 rounded-lg min-h-10 max-h-[340px] overflow-auto blog-scrollbar">
                     <div className="space-y-2">
                       {isAdmin && (
                         <>
                           <Link to="/create-post"
-                                className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-1">
+                                className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-2">
                             Create post
                             <Icons.pen className="size-4"/>
                           </Link>
                           <Link to="/admin/dashboard"
-                                className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-1">
+                                className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-2">
                             Admin
                             <Icons.lock className="size-4"/>
                           </Link>
                           <div className="h-0.5 w-full my-3 bg-indigo-300"></div>
                         </>
                       )}
+                      <Link to="/settings"
+                            className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-2">
+                        Profile settings
+                        <Icons.userSettings className="size-4"/>
+                      </Link>
                       <button
                         className="primary-button w-full h-13 gap-2"
                         onClick={logout}>
