@@ -2,6 +2,7 @@ import {useState} from "react";
 import {toast} from "sonner";
 import {register} from "../../services/api.ts";
 import {useAuth} from "../../hooks/use-auth.ts";
+import {validateEmail, validatePassword, validateUsername} from "../../validators/forms.ts";
 
 interface Props {
   onSuccess: () => void;
@@ -17,28 +18,6 @@ export const RegisterForm = ({onSuccess}: Props) => {
     email?: string;
     password?: string;
   }>({});
-
-  const validateUsername = (value: string): string | undefined => {
-    const regex = /^[a-zA-Z0-9_-]+$/;
-    if (!value) return 'Username is required';
-    if (!regex.test(value)) return 'Username can only contain Latin letters, numbers, underscores, and hyphens';
-    return undefined
-  }
-
-  const validateEmail = (value: string): string | undefined => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/  ;
-    if (!value) return 'Email is required';
-    if (!regex.test(value)) return 'Invalid email format';
-    return undefined;
-  }
-
-  const validatePassword = (value: string): string | undefined => {
-    const regex = /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/;
-    if (!value) return 'Password is required';
-    if (!regex.test(value)) return 'Password can only contain Latin letters, numbers, and symbols';
-    if (value.length < 8) return 'Password must be at least 8 characters long';
-    return undefined;
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
