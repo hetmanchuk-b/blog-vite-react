@@ -38,11 +38,15 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     setUser(null);
   }
 
+  const updateUser = (updatedUser: User) => {
+    setUser(updatedUser);
+  }
+
   const isAuthenticated = !!user;
   const isAdmin = user?.role === 'admin';
 
   return (
-    <AuthContext.Provider value={{user, isAuthenticated, isAdmin, isLoading, login, logout}}>
+    <AuthContext.Provider value={{user, isAuthenticated, isAdmin, isLoading, login, logout, updateUser}}>
       {children}
     </AuthContext.Provider>
   );

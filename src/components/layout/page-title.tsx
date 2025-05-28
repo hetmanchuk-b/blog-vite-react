@@ -6,9 +6,9 @@ interface Props {
 export const PageTitle = ({title, subtitle}: Props) => {
   return (
     <div className="mb-3 lg:mb-4 flex flex-col items-center">
-      <h1 className="text-2xl text-center font-bold">{title}</h1>
+      <h1 className="text-2xl text-center font-extrabold tracking-widest">{title}</h1>
       {subtitle && (
-        <p className="text-gray-400 text-center mt-1">
+        <p className="text-gray-400 text-center mt-1 tracking-widest">
           {subtitle}
         </p>
       )}

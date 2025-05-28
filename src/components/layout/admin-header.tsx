@@ -1,4 +1,5 @@
 import { Icons } from "../icons";
+import {UserButton} from "./user-button.tsx";
 
 interface Props {
   toggleSidebar: () => void;
@@ -18,6 +19,10 @@ export const AdminHeader = ({toggleSidebar}: Props) => {
         </button>
 
         <div className="tracking-widest">Admin Dashboard</div>
+
+        <div className="ml-auto">
+          <UserButton />
+        </div>
 
       </div>
     </header>

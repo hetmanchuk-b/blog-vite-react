@@ -62,8 +62,8 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
   return response.data;
 }
 
-export const login = async (data: LoginData): Promise<AuthResponse> => {
-  const response = await api.post('/auth/login', data);
+export const login = async ({username, password}: LoginData): Promise<AuthResponse> => {
+  const response = await api.post('/auth/login', {username, password});
   return response.data;
 }
 
@@ -97,3 +97,12 @@ export const verifyResetToken = async (token: string): Promise<void> => {
   await api.get('/auth/verify-reset-token', {params: {token}});
 }
 
+export const getUserProfile = async (user_id: number): Promise<User> => {
+  const response = await api.get(`/users/me/${user_id}`);
+  return response.data;
+}
+
+export const updateUserProfile = async (data: Partial<User>): Promise<User> => {
+  const response = await api.put('/users/me', data);
+  return response.data;
+}

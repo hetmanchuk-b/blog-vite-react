@@ -5,3 +5,9 @@ export interface User {
   role: 'admin' | 'user';
   bio?: string | null;
 }
+
+export interface UpdateUserData {
+  username: string;
+  email: string;
+  bio: string | null;
+}

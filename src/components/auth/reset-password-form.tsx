@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {toast} from "sonner";
 import {resetPassword, verifyResetToken} from "../../services/api.ts";
 import {useAuth} from "../../hooks/use-auth.ts";
-import { Icons } from "../icons.tsx";
 import {validateConfirmPassword, validatePassword} from "../../validators/forms.ts";
+import {LoaderSpinner} from "../loader-spinner.tsx";
 
 export const ResetPasswordForm = () => {
   const navigate = useNavigate();
@@ -77,10 +77,7 @@ export const ResetPasswordForm = () => {
   if (isLoading || !token) {
     return (
       <div className="p-4">
-        <p className="text-2xl flex items-center gap-2">
-          <Icons.loader className="size-8 animate-spin"/>
-          Loading...
-        </p>
+        <LoaderSpinner isVisible />
       </div>
     )
   }

@@ -26,3 +26,8 @@ export const validateConfirmPassword = (value: string, password: string): string
   if (value !== password) return 'Passwords do not match';
   return undefined;
 }
+
+export const validateBio = (value: string): string | undefined => {
+  if (value.length > 500) return 'Bio must be 500 characters or less';
+  return undefined;
+};
