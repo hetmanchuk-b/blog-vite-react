@@ -40,7 +40,7 @@ export const Header = () => {
                     </div>
                   </button>
                   {userNavOpen && (<div
-                    className="absolute top-9 bg-neutral-800 p-4 w-51 right-0 rounded-lg min-h-47 max-h-[340px] overflow-auto blog-scrollbar">
+                    className="absolute top-9 bg-neutral-800 p-4 w-51 right-0 rounded-lg min-h-10 max-h-[340px] overflow-auto blog-scrollbar">
                     <div className="space-y-2">
                       {isAdmin && (
                         <>

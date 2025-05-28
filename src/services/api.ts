@@ -67,13 +67,13 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
   return response.data;
 }
 
-export const forgotPassword = async (data: ForgotPasswordData): Promise<{ message: string }> => {
-  const response = await api.post('/auth/forgot-password', data);
+export const forgotPassword = async ({email}: ForgotPasswordData): Promise<{ message: string }> => {
+  const response = await api.post('/auth/forgot-password', {email});
   return response.data;
 }
 
-export const resetPassword = async (data: ResetPasswordData): Promise<{ message: string }> => {
-  const response = await api.post('/auth/reset-password', data);
+export const resetPassword = async ({token, newPassword}: ResetPasswordData): Promise<{ message: string }> => {
+  const response = await api.post('/auth/reset-password', {token, newPassword});
   return response.data;
 }
 
@@ -92,3 +92,4 @@ export const verifyToken = async (): Promise<{user: User}> => {
   const response = await api.get('/auth/verify');
   return response.data;
 }
+
