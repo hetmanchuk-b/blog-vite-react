@@ -1,11 +1,14 @@
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {toast} from "sonner";
-import {resetPassword} from "../../services/api.ts";
+import {resetPassword, verifyResetToken} from "../../services/api.ts";
+import {useAuth} from "../../hooks/use-auth.ts";
+import { Icons } from "../icons.tsx";
 
 export const ResetPasswordForm = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const {login} = useAuth();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<{
@@ -13,15 +16,29 @@ export const ResetPasswordForm = () => {
     confirmPassword?: string;
   }>({});
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const tokenFromUrl = searchParams.get('token');
     if (!tokenFromUrl) {
       toast.error("Invalid or missing reset token");
       navigate("/forgot-password");
-    } else {
-      setToken(tokenFromUrl);
+      return
     }
+
+    const validateToken = async () => {
+      try {
+        await verifyResetToken(tokenFromUrl);
+        setToken(tokenFromUrl);
+      } catch (err: any) {
+        toast.error(err.response?.data?.error || 'Invalid or expired reset token.');
+        navigate('/');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    validateToken();
   }, [searchParams, navigate]);
 
   const validatePassword = (value: string): string | undefined => {
@@ -61,12 +78,24 @@ export const ResetPasswordForm = () => {
     try {
       const newPassword = password;
       const response = await resetPassword({token, newPassword});
-      toast.success(response.message);
+      login(response.token);
+      toast.success('Password reset successfully!');
       setErrors({});
-      navigate('/login');
+      navigate('/');
     } catch (err: any) {
       toast.error(err.response?.data?.error || 'Failed to reset password');
     }
+  }
+
+  if (isLoading || !token) {
+    return (
+      <div className="p-4">
+        <p className="text-2xl flex items-center gap-2">
+          <Icons.loader className="size-8 animate-spin"/>
+          Loading...
+        </p>
+      </div>
+    )
   }
 
   return (

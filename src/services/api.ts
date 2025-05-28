@@ -72,7 +72,7 @@ export const forgotPassword = async ({email}: ForgotPasswordData): Promise<{ mes
   return response.data;
 }
 
-export const resetPassword = async ({token, newPassword}: ResetPasswordData): Promise<{ message: string }> => {
+export const resetPassword = async ({token, newPassword}: ResetPasswordData): Promise<{ token: string }> => {
   const response = await api.post('/auth/reset-password', {token, newPassword});
   return response.data;
 }
@@ -91,5 +91,9 @@ export const updateUserRole = async (userId: number, role: 'admin' | 'user'): Pr
 export const verifyToken = async (): Promise<{user: User}> => {
   const response = await api.get('/auth/verify');
   return response.data;
+}
+
+export const verifyResetToken = async (token: string): Promise<void> => {
+  await api.get('/auth/verify-reset-token', {params: {token}});
 }
 

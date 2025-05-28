@@ -7,6 +7,7 @@ import {
   LogIn,
   Menu,
   UserPlus,
+  LoaderCircle,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -21,4 +22,5 @@ export const Icons = {
   login: LogIn,
   signup: UserPlus,
   menu: Menu,
+  loader: LoaderCircle,
 }
