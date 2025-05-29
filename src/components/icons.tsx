@@ -11,6 +11,7 @@ import {
   PanelLeftDashed,
   UserRoundCog,
   ChevronDown,
+  X,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -29,4 +30,5 @@ export const Icons = {
   sidebar: PanelLeftDashed,
   userSettings: UserRoundCog,
   chevronDown: ChevronDown,
+  close: X,
 }

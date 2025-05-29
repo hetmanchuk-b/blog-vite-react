@@ -1,6 +1,6 @@
 import {type ComponentPropsWithoutRef, useState} from "react";
 import {twMerge} from "tailwind-merge";
-import {PopoverContext, usePopoverContext} from "../../hooks/popover-context.tsx";
+import {PopoverContext, usePopoverContext} from "../../context/popover-context.ts";
 import {useDetectClickOutside} from "../../hooks/use-detect-click-outside.ts";
 import { Icons } from "../icons.tsx";
 

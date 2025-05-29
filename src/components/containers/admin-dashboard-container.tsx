@@ -1,12 +1,10 @@
 import {useAuth} from "../../hooks/use-auth.ts";
 import {Link} from "react-router-dom";
-import {Modal} from "../ui/modal.tsx";
-import {useModal} from "../../hooks/use-modal.tsx";
+import {Tabs} from "../ui/tabs.tsx";
 
 export const AdminDashboardContainer = () => {
   const {user} = useAuth();
 
-  const modalProps = useModal();
 
   return (
     <div>
@@ -16,6 +14,34 @@ export const AdminDashboardContainer = () => {
           Welcome, <b className="font-bold">{user?.username}</b>
         </p>
       </div>
+      <Tabs>
+        <Tabs.List>
+          <Tabs.Button tabIndex={0}>
+            Windows
+          </Tabs.Button>
+          <Tabs.Button tabIndex={1}>
+            Linux
+          </Tabs.Button>
+          <Tabs.Button tabIndex={2}>
+            Samsung
+          </Tabs.Button>
+          <Tabs.Button tabIndex={3}>
+            Nokia
+          </Tabs.Button>
+        </Tabs.List>
+        <Tabs.Content tabIndex={0}>
+          asd;flasdl ;f,asd; f,asd;fl,' as;fl,as ';fl,as' ;flas'fl,'a;sldf
+        </Tabs.Content>
+        <Tabs.Content tabIndex={1}>
+          a111sd;fl11111asdl ;f,asd; f,asd;fl,' 1111as;fl,as ';fl,as' ;fla111s'fl,'a;sldf
+        </Tabs.Content>
+        <Tabs.Content tabIndex={2}>
+          asd2222;fl2222asdl ;f,2222a2222sd; f,asd;2222fl,' 2222as;fl,as 22222222;fl,as' ;fla2222s'fl,2222'a;sldf
+        </Tabs.Content>
+        <Tabs.Content tabIndex={3}>
+          asd;33333fla33333sdl ;33333f,asd; 33333f,a33333sd;f33333l,' as33333;fl33333,as ';fl33333,a33333s' ;f33333las33333'fl,33333'a;sl33333df
+        </Tabs.Content>
+      </Tabs>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
         <div className="border-2 border-gray-500 rounded-lg px-4 py-2 flex flex-col gap-2">
           <div className="flex justify-between items-start gap-2">
@@ -56,10 +82,7 @@ export const AdminDashboardContainer = () => {
           </div>
         </div>
 
-        <button className="primary-button" onClick={() => modalProps.onOpen()}>Open</button>
-        <Modal {...modalProps}>
-          Hello
-        </Modal>
+
       </div>
     </div>
   );

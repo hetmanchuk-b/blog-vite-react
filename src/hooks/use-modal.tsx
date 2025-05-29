@@ -36,7 +36,6 @@ export const useModal = (): ModalProps => {
     }
 
     document.addEventListener('keydown', handleKeyDown);
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     }
