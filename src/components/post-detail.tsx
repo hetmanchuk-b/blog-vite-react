@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import { getPost, getComments, createComment } from '../services/api';
 import type {Post} from "../types/post.ts";
 import type {Comment} from "../types/comment.ts";
@@ -7,7 +7,7 @@ import {useAuth} from "../hooks/use-auth.ts";
 import {ClientLayout} from "./layout/client-layout.tsx";
 
 export const PostDetail = () => {
-  const {user, isAuthenticated} = useAuth();
+  const {user, isAuthenticated, isAdmin} = useAuth();
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -49,7 +49,16 @@ export const PostDetail = () => {
 
   return (
     <ClientLayout>
-      <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+      <div className="flex flex-col items-center lg:flex-row lg:justify-between gap-2 mb-4">
+        <h1 className="text-2xl font-bold">{post.title}</h1>
+        {isAdmin && (
+          <>
+            <Link className="primary-button" to={`/admin/posts/${post.id}/edit`}>
+              Edit post
+            </Link>
+          </>
+        )}
+      </div>
       <div className="p-2 rounded-lg border border-gray-600 mb-4">
         <p className="text-gray-600 mb-2">Category: {post.category_name}</p>
         <p className="text-balance">{post.content}</p>

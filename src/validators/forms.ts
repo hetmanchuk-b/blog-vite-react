@@ -31,3 +31,20 @@ export const validateBio = (value: string): string | undefined => {
   if (value.length > 500) return 'Bio must be 500 characters or less';
   return undefined;
 };
+
+export const validatePostTitle = (value: string): string | undefined => {
+  if (!value) return 'Title is required';
+  if (value.length > 255) return 'Title must be 255 characters or less';
+  return undefined;
+};
+
+export const validatePostContent = (value: string): string | undefined => {
+  if (!value) return 'Content is required';
+  if (value.length > 1000) return 'Content must be 1000 characters or less';
+  return undefined;
+};
+
+export const validatePostCategory = (value: number | ''): string | undefined => {
+  if (!value) return 'Category is required';
+  return undefined;
+};

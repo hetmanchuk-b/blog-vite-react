@@ -7,13 +7,15 @@ import {ForgotPasswordPage} from "./pages/forgot-password-page.tsx";
 import {ResetPasswordPage} from "./pages/reset-password-page.tsx";
 import {AuthProvider} from "./context/auth-context.tsx";
 import {ProtectedRoute} from "./components/protected-route.tsx";
-import {CreatePostPage} from "./pages/create-post-page.tsx";
+import {CreatePostPage} from "./pages/admin/create-post-page.tsx";
 import {DashboardPage} from "./pages/admin/dashboard-page.tsx";
 import {HomePage} from "./pages/home-page.tsx";
 import {UsersPage} from "./pages/admin/users-page.tsx";
 import {CommentsPage} from "./pages/admin/comments-page.tsx";
 import {CategoriesPage} from "./pages/admin/categories-page.tsx";
 import {SettingsPage} from "./pages/settings-page.tsx";
+import {EditPostPage} from "./pages/admin/edit-post-page.tsx";
+import {PostsPage} from "./pages/admin/posts-page.tsx";
 
 function App() {
 
@@ -34,13 +36,15 @@ function App() {
           {/* Protected routes */}
           <Route element={<ProtectedRoute requireAdmin />}>
             {/* Posts */}
-            <Route path="/create-post" element={<CreatePostPage />} />
+            <Route path="/admin/posts/create" element={<CreatePostPage />} />
+            <Route path="/admin/posts/:id/edit" element={<EditPostPage />} />
 
             {/* Admin Dashboard */}
             <Route path="/admin/dashboard" element={<DashboardPage />} />
             <Route path="/admin/users" element={<UsersPage />} />
             <Route path="/admin/comments" element={<CommentsPage />} />
             <Route path="/admin/categories" element={<CategoriesPage />} />
+            <Route path="/admin/posts" element={<PostsPage />} />
           </Route>
 
           {/* Routes for authenticated */}

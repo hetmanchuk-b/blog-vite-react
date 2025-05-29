@@ -45,6 +45,18 @@ export const createPost = async (post: Omit<Post, 'id' | 'created_at' | 'categor
   return response.data;
 }
 
+export const updatePost = async (
+  id: number,
+  data: {
+    title: string;
+    content: string;
+    category_id: number;
+  }
+): Promise<Post> => {
+  const response = await api.put(`/posts/${id}`, data);
+  return response.data;
+}
+
 // Comments
 export const getComments = async (post_id: number): Promise<Comment[]> => {
   const response = await api.get(`/comments/${post_id}`);

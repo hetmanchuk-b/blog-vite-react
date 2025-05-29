@@ -34,7 +34,7 @@ export const UserButton = () => {
         <div className="space-y-2">
           {isAdmin && (
             <>
-              <Link to="/create-post"
+              <Link to="/admin/posts/create"
                     className="primary-button min-h-7 bg-neutral-600 hover:bg-neutral-700 w-full flex items-center gap-2">
                 Create post
                 <Icons.pen className="size-4"/>
