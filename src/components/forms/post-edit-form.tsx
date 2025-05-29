@@ -6,6 +6,8 @@ import {toast} from "sonner";
 import {getCategories, getPost, updatePost} from "../../services/api.ts";
 import {validatePostCategory, validatePostContent, validatePostTitle} from "../../validators/forms.ts";
 import {LoaderSpinner} from "../loader-spinner.tsx";
+import {Popover} from "../ui/popover.tsx";
+import {twMerge} from "tailwind-merge";
 
 interface FormData {
   title: string;
@@ -140,29 +142,49 @@ export const PostEditForm = () => {
         {errors.content && <p className="mt-1 text-sm text-red-500">{errors.content}</p>}
       </div>
       <div>
-        <label htmlFor="category_id" className="block text-sm font-medium text-gray-700">
-          Category
-        </label>
-        <select
-          id="category_id"
-          value={formData.category_id}
-          onChange={(e) => {
-            const value = e.target.value ? Number(e.target.value) : '';
-            setFormData({...formData, category_id: value});
-            setErrors({...errors, category_id: validatePostCategory(value)});
-          }}
-          className={`mt-1 block w-full px-3 py-2 border ${
-            errors.category_id ? 'border-red-500' : 'border-gray-300'
-          } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
-          required
-        >
-          <option value="">Select a category</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <Popover>
+          <Popover.Button
+            className={twMerge(errors.category_id && 'border border-red-500')}
+          >
+            {selectedCategoryName ? selectedCategoryName : 'Select Category'}
+          </Popover.Button>
+          <Popover.List>
+            <Popover.ListItem
+              onClick={() => {
+                setFormData((prev) => ({
+                  ...prev,
+                  category_id: '',
+                }));
+                setErrors((prev) => ({
+                  ...prev,
+                  category_id: validatePostCategory(''),
+                }))
+                setSelectedCategoryName('');
+              }}
+            >
+              Clear Category
+            </Popover.ListItem>
+            <Popover.Separator />
+            {categories.map((category) => (
+              <Popover.ListItem
+                key={category.id}
+                onClick={() => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    category_id: Number(category.id)
+                  }));
+                  setErrors((prev) => ({
+                    ...prev,
+                    category_id: validatePostCategory(Number(category.id))
+                  }));
+                  setSelectedCategoryName(category.name);
+                }}
+              >
+                {category.name}
+              </Popover.ListItem>
+            ))}
+          </Popover.List>
+        </Popover>
         {errors.category_id && <p className="mt-1 text-sm text-red-500">{errors.category_id}</p>}
       </div>
       <div className="flex space-x-4">

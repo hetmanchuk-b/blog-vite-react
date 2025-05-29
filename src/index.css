@@ -23,29 +23,9 @@
             transform: rotate(3deg);
         }
     }
-
-    --animate-modal-in: modal-in 0.2s ease-in forwards;
-    --animate-modal-out: modal-out 0.2s ease-out forwards;
     --animate-modal-wrapper-in: modal-wrapper-in 0.2s ease-in forwards;
     --animate-modal-wrapper-out: modal-wrapper-out 0.2s ease-out forwards;
 
-    @keyframes modal-in {
-        from {
-            transform: translateY(20px);
-        }
-        to {
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes modal-out {
-        from {
-            transform: translateY(0);
-        }
-        to {
-            transform: translateY(20px);
-        }
-    }
     @keyframes modal-wrapper-in {
         from {
             opacity: 0;

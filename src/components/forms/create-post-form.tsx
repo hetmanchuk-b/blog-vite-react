@@ -101,7 +101,7 @@ export const CreatePostForm = () => {
       <div>
         <Popover>
           <Popover.Button
-            className={twMerge(errors.categoryId && 'border-red-500')}
+            className={twMerge(errors.categoryId && 'border border-red-500')}
           >
             {selectedCategoryName ? selectedCategoryName : 'Select Category'}
           </Popover.Button>

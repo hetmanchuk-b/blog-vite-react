@@ -30,10 +30,7 @@ const ModalLayout = ({children, isOpen, onClose, animation}: ModalLayoutProps) =
         onClick={onClose}
       >
         <div
-          className={twMerge(
-            'bg-neutral-800 text-neutral-100 p-4 rounded-lg shadow-xl max-w-xl w-full',
-            animation === 'out' ? 'animate-modal-out' : 'animate-modal-in'
-          )}
+          className="bg-neutral-800 text-neutral-100 p-4 rounded-lg shadow-xl max-w-xl w-full"
           onClick={(e) => e.stopPropagation()}
         >
           {children}
