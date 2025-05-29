@@ -3,6 +3,7 @@ import type {Post} from "../types/post.ts";
 import type {Category} from "../types/category.ts";
 import {getCategories, getPosts} from "../services/api.ts";
 import {Link} from "react-router-dom";
+import {Popover} from "./ui/popover.tsx";
 
 interface Props {
   categoryId?: number;
@@ -37,24 +38,23 @@ export const PostList = ({categoryId}: Props) => {
     <>
       <div className="mb-4">
         <div className="flex">
-          <label
-            htmlFor="category-select"
-            className="mr-2">Category filter:</label>
-          <select
-            id="category-select"
-            className="bg-gray-950"
-            value={selectedCategory || ''}
-            onChange={(e) => setSelectedCategory(e.target.value ? Number(e.target.value) : undefined)}>
-            <option value="">All posts</option>
-            {categories.map(category => (
-              <option
-                className="text-gray-100"
-                key={category.id}
-                value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+          <Popover className="w-full max-w-[190px]">
+            <Popover.Button>Categories</Popover.Button>
+            <Popover.List>
+              <Popover.ListItem onClick={() => setSelectedCategory(undefined)}>
+                All categories
+              </Popover.ListItem>
+              <Popover.Separator />
+              {categories.map((category) => (
+                <Popover.ListItem
+                  onClick={() => setSelectedCategory(category.id)}
+                  key={category.id}
+                >
+                  {category.name}
+                </Popover.ListItem>
+              ))}
+            </Popover.List>
+          </Popover>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

@@ -10,6 +10,7 @@ import {
   LoaderCircle,
   PanelLeftDashed,
   UserRoundCog,
+  ChevronDown,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -27,4 +28,5 @@ export const Icons = {
   loader: LoaderCircle,
   sidebar: PanelLeftDashed,
   userSettings: UserRoundCog,
+  chevronDown: ChevronDown,
 }

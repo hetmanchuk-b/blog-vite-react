@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import type {Category} from "../../types/category.ts";
 import {createPost, getCategories} from "../../services/api.ts";
 import {toast} from "sonner";
+import {Popover} from "../ui/popover.tsx";
+import {twMerge} from "tailwind-merge";
 
 export const CreatePostForm = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ export const CreatePostForm = () => {
     content?: string;
     categoryId?: string;
   }>({});
+  const [selectedCategoryName, setSelectedCategoryName] = useState('');
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -96,30 +99,43 @@ export const CreatePostForm = () => {
         {errors.content && <p className="mt-1 text-sm text-red-500">{errors.content}</p>}
       </div>
       <div>
-        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-400">
-          Category
-        </label>
-        <select
-          id="categoryId"
-          value={categoryId}
-          onChange={(e) => {
-            setCategoryId(Number(e.target.value) || '');
-            setErrors((prev) => ({
-              ...prev,
-              categoryId: e.target.value ? undefined : 'Category is required',
-            }));
-          }}
-          className={`mt-1 block bg-neutral-800 w-full px-3 py-2 border ${
-            errors.categoryId ? 'border-red-500' : 'border-gray-300'
-          } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
-        >
-          <option value="">Select a category</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+        <Popover>
+          <Popover.Button
+            className={twMerge(errors.categoryId && 'border-red-500')}
+          >
+            {selectedCategoryName ? selectedCategoryName : 'Select Category'}
+          </Popover.Button>
+          <Popover.List>
+            <Popover.ListItem
+              onClick={() => {
+                setCategoryId('');
+                setSelectedCategoryName('');
+                setErrors((prev) => ({
+                  ...prev,
+                  categoryId: 'Category is required'
+                }));
+              }}
+            >
+              Clear Category
+            </Popover.ListItem>
+            <Popover.Separator />
+            {categories.map((category) => (
+              <Popover.ListItem
+                key={category.id}
+                onClick={() => {
+                  setCategoryId(Number(category.id));
+                  setSelectedCategoryName(category.name);
+                  setErrors((prev) => ({
+                    ...prev,
+                    categoryId: undefined,
+                  }));
+                }}
+              >
+                {category.name}
+              </Popover.ListItem>
+            ))}
+          </Popover.List>
+        </Popover>
         {errors.categoryId && <p className="mt-1 text-sm text-red-500">{errors.categoryId}</p>}
       </div>
       <button

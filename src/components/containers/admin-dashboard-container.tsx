@@ -1,8 +1,13 @@
 import {useAuth} from "../../hooks/use-auth.ts";
 import {Link} from "react-router-dom";
+import {Modal} from "../ui/modal.tsx";
+import {useModal} from "../../hooks/use-modal.tsx";
 
 export const AdminDashboardContainer = () => {
   const {user} = useAuth();
+
+  const modalProps = useModal();
+
   return (
     <div>
       <div className="flex flex-col items-center lg:flex-row gap-2 lg:gap-4 justify-between mb-4">
@@ -50,6 +55,11 @@ export const AdminDashboardContainer = () => {
             <Link to="/admin/categories" className="secondary-button">Manage categories</Link>
           </div>
         </div>
+
+        <button className="primary-button" onClick={() => modalProps.onOpen()}>Open</button>
+        <Modal {...modalProps}>
+          Hello
+        </Modal>
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ export const PostEditForm = () => {
     category_id?: string;
   }>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCategoryName, setSelectedCategoryName] = useState('');
 
   useEffect(() => {
     if (!isAdmin) {
